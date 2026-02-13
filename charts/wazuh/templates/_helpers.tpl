@@ -729,8 +729,12 @@ wazuh_clusterd.debug=0
       <connection>secure</connection>
       <port>{{ .port }}</port>
       <protocol>tcp</protocol>
+      {{- if .Values.global.dualStack.enabled }}
       <local_ip>::</local_ip>
       <ipv6>yes</ipv6>
+      {{- else }}
+      <local_ip>0.0.0.0</local_ip>
+      {{- end }}
       <queue_size>131072</queue_size>
     </remote>
   {{- end }}
@@ -998,7 +1002,9 @@ wazuh_clusterd.debug=0
   {{- end }}
 {{- end }}
     <use_source_ip>no</use_source_ip>
+    {{- if .Values.global.dualStack.enabled }}
     <ipv6>yes</ipv6>
+    {{- end }}
     <force>
       <enabled>yes</enabled>
       <key_mismatch>yes</key_mismatch>
@@ -1091,8 +1097,12 @@ wazuh_clusterd.debug=0
       <connection>secure</connection>
       <port>{{ .port }}</port>
       <protocol>tcp</protocol>
+      {{- if .Values.global.dualStack.enabled }}
       <local_ip>::</local_ip>
       <ipv6>yes</ipv6>
+      {{- else }}
+      <local_ip>0.0.0.0</local_ip>
+      {{- end }}
       <queue_size>131072</queue_size>
     </remote>
   {{- end }}
@@ -1359,7 +1369,9 @@ wazuh_clusterd.debug=0
     <port>{{ .port }}</port>
   {{- end }}
 {{- end }}
+    {{- if .Values.global.dualStack.enabled }}
     <ipv6>yes</ipv6>
+    {{- end }}
     <use_source_ip>no</use_source_ip>
     <force>
       <enabled>yes</enabled>
@@ -1413,9 +1425,13 @@ wazuh_clusterd.debug=0
     <port>514</port>
     <protocol>tcp</protocol>
     <allowed-ips>0.0.0.0/0</allowed-ips>
+    {{- if .Values.global.dualStack.enabled }}
     <allowed-ips>::/0</allowed-ips>
     <local_ip>::</local_ip>
     <ipv6>yes</ipv6>
+    {{- else }}
+    <local_ip>0.0.0.0</local_ip>
+    {{- end }}
   </remote>
 {{- end }}
 
